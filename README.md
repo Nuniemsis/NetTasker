@@ -1,7 +1,7 @@
 # NetTasker
 
 NetTasker is a demo application that combines both HTTP and WebSocket protocols to enhance the user experience. It showcases the integration of a FastAPI-based backend and a Vue.js-based frontend, managed with Docker for streamlined deployment.
-
+![alt text](image.png)
 ## Features
 
 - **FastAPI Backend**: A robust and scalable backend for handling tasks and real-time communication.

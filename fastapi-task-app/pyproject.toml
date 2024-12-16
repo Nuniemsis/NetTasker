@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "fastapi-task-app"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+description = "Task Managing Sample App with REST and WebSockets"
+authors = ["Nuno Carvalho dos Santos <nunocarvalhodossantos@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -10,5 +10,5 @@ Base = declarative_base()
 
 # Create all tables
 def init_db():
-    import models.task_model  # Import your SQLAlchemy models
+    import models.task_model 
     Base.metadata.create_all(bind=engine)

@@ -5,7 +5,7 @@ from routes.task_routes import router as task_router
 from routes.websocket_routes import router as websocket_router
 from database.database import init_db
 from fastapi.middleware.cors import CORSMiddleware
-
+from scheduler.scheduler import setup_scheduler
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,  # Set the default log level
@@ -21,6 +21,8 @@ async def lifespan(app: FastAPI):
     # Perform actions during application startup
     logger.info("Starting up the application...")
     init_db()
+    # Initialize and start the scheduler
+    setup_scheduler()
     yield  # Run the application
     # Perform actions during application shutdown
     logger.info("Shutting down the application...")

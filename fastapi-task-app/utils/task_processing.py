@@ -30,13 +30,13 @@ async def process_task(task_id: str, db: Session):
         
         update_task_status(task_id, TaskStatus.completed.value, f"Result of task {task_id}", db)
         logger.info(f"Task {task_id} marked as completed.")
-        await notify_clients(notification=Notification(type=NotificationType.task_update))
-        logger.info(f"Clients notified about task {task_id} completion.")
+        # await notify_clients(notification=Notification(type=NotificationType.task_update))
+        # logger.info(f"Clients notified about task {task_id} completion.")
     except Exception as e:
         logger.error(f"Task {task_id} failed: {str(e)}", exc_info=True)
         update_task_status(task_id, TaskStatus.failed.value, f"Task failed: {str(e)}", db)
-        await notify_clients(notification=Notification(type=NotificationType.task_update))
-        logger.info(f"Clients notified about task {task_id} failure.")
+        # await notify_clients(notification=Notification(type=NotificationType.task_update))
+        # logger.info(f"Clients notified about task {task_id} failure.")
         db.close()
     finally:
         logger.info(f"Finished task processing for task_id={task_id}")

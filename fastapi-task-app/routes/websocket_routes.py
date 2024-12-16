@@ -1,6 +1,5 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-
-from app.schemas.notification import Notification
+from schemas.notification import Notification
 
 router = APIRouter()
 connected_clients = []

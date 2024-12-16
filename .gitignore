@@ -4,3 +4,9 @@ __init__.py
 docker-compose-ollama.yml
 fastapi-task-app/venv/
 vue-task-app/node_modules/
+wallapop
+# Ignore Python cache files and directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

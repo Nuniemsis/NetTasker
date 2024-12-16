@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
-from app.schemas.notification_type_enum import NotificationType
+from schemas.notification_type_enum import NotificationType
 
 
 class Notification(BaseModel):

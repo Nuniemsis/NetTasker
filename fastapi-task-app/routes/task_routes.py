@@ -1,14 +1,16 @@
-# routes/task_routes.py: Define rutas relacionadas con tareas
-from typing import List
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, Query
 from sqlalchemy.orm import Session
-from app.schemas.task_status_count import CountStatusResponseModel
-from app.schemas.task_status_enum import TaskStatus
+from schemas.task_status_count import CountStatusResponseModel
+from schemas.task_status_enum import TaskStatus
 from schemas.task_schema import PaginatedTasksResponse, TaskResponse
 from database.database import SessionLocal
-from models.task_model import Task
 from utils.task_processing import process_task
-from uuid import uuid4
+from crud.task_crud import (
+    create_task_in_db,
+    get_paginated_tasks,
+    count_total_tasks,
+    count_tasks_by_status,
+)
 
 router = APIRouter()
 
@@ -20,17 +22,20 @@ def get_db():
     finally:
         db.close()
 
+
 @router.post("/tasks")
 def create_task(background_tasks: BackgroundTasks, 
                 db: Session = Depends(get_db)
                 ):
     """Create a new task and process it in the background."""
-    task_id = str(uuid4())
-    new_task = Task(id=task_id)
-    db.add(new_task)
-    db.commit()
-    background_tasks.add_task(process_task, task_id, db)
-    return TaskResponse(task_id=task_id, status=TaskStatus.pending.value)
+    new_task = create_task_in_db(db)
+    background_tasks.add_task(process_task, new_task.id, db)
+    return TaskResponse(
+        task_id=new_task.id, 
+        status=TaskStatus.pending.value, 
+        start_date=new_task.start_date
+    )
+
 
 @router.get("/tasks", response_model=PaginatedTasksResponse)
 def list_tasks(
@@ -38,23 +43,20 @@ def list_tasks(
     limit: int = Query(10, ge=1),
     offset: int = Query(0, ge=0),
 ):
-    # Get total count of tasks (without limit or offset)
-    total_count = db.query(Task).count()
-
-    # Fetch the paginated tasks
-    tasks = db.query(Task).offset(offset).limit(limit).all()
-    tasks = [
+    total_count = count_total_tasks(db)
+    tasks = get_paginated_tasks(db, limit, offset)
+    task_responses = [
         TaskResponse(
             task_id=task.id,
             status=task.status,
-            result=task.result
+            result=task.result,
+            start_date=task.start_date,
+            end_date=task.end_date
         ) for task in tasks
     ]
-
-    # Return the paginated response with total_count included
     return PaginatedTasksResponse(
         total_count=total_count,
-        items=tasks
+        items=task_responses
     )
 
 
@@ -71,10 +73,5 @@ def get_task_count(
     Returns:
         A dictionary containing the total count of tasks with the given status.
     """
-    valid_statuses = ["pending", "completed", "failed"]
-    if status not in valid_statuses:
-        return {"error": f"Invalid status. Valid statuses are: {', '.join(valid_statuses)}"}
-
-    total_count = db.query(Task).filter(Task.status == status.value).count()
-    count_response = CountStatusResponseModel(status=status.value, count=total_count)
-    return count_response
+    total_count = count_tasks_by_status(db, status)
+    return CountStatusResponseModel(status=status.value, count=total_count)

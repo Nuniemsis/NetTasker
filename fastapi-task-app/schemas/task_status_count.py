@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
-from app.schemas.task_status_enum import TaskStatus
+from schemas.task_status_enum import TaskStatus
 
 
 class CountStatusResponseModel(BaseModel):

@@ -13,6 +13,7 @@ NetTasker is a demo application that combines both HTTP and WebSocket protocols 
 
 ```
 NetTasker-main
+├── .env                  # Contains environment variables
 ├── .gitignore              # Git ignore file
 ├── README.md               # Project documentation
 ├── docker-compose.yml      # Docker Compose configuration
@@ -61,7 +62,17 @@ NetTasker-main
    source venv/bin/activate
    pip install -r requirements.txt
    ```
-3. Run the backend server:
+3. Create a .env file:
+
+   ```
+   DB_USER=your_user
+   DB_PASSWORD=your_password
+   DB_HOST=your_host
+   DB_PORT=your_port
+   DB_NAME=your_database
+   ```
+
+4. Run the backend server:
    ```bash
    uvicorn app.main:app --reload
    ```

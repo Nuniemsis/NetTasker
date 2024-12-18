@@ -17,9 +17,9 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_password
-          POSTGRES_DB: test_db
+          POSTGRES_USER: myuser
+          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: mydatabase
         ports:
           - 5432:5432
         options: >-
@@ -41,18 +41,6 @@ jobs:
       working-directory: fastapi-task-app
       run: |
         poetry install
-    - name: Run Database Migrations
-      working-directory: fastapi-task-app
-      env:
-        DATABASE_URL: "postgresql://test_user:test_password@localhost:5432/test_db"
-        DB_USER: test_user
-        DB_PASSWORD: test_password
-        DB_HOST: localhost
-        DB_PORT: "5432"
-        DB_NAME: test_db
-
-      run: |
-        poetry run alembic upgrade head
     - name: Lint with flake8
       working-directory: fastapi-task-app
       run: |
@@ -62,5 +50,12 @@ jobs:
         poetry run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       working-directory: fastapi-task-app
+      env:
+        DATABASE_URL: "postgresql://test_user:test_password@localhost:5432/test_db"
+        DB_USER: myuser
+        DB_PASSWORD: mypassword
+        DB_HOST: localhost
+        DB_PORT: "5432"
+        DB_NAME: mydatabase
       run: |
         poetry run pytest

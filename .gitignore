@@ -1,6 +1,5 @@
 .vscode
 code
-__init__.py
 docker-compose-ollama.yml
 fastapi-task-app/venv/
 vue-task-app/node_modules/

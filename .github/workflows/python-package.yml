@@ -45,6 +45,12 @@ jobs:
       working-directory: fastapi-task-app
       env:
         DATABASE_URL: "postgresql://test_user:test_password@localhost:5432/test_db"
+        DB_USER: test_user
+        DB_PASSWORD: test_password
+        DB_HOST: localhost
+        DB_PORT: "5432"
+        DB_NAME: test_db
+
       run: |
         poetry run alembic upgrade head
     - name: Lint with flake8

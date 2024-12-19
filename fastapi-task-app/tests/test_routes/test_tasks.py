@@ -38,7 +38,7 @@ def test_get_task_count(client):
 
 
 @pytest.mark.asyncio
-async def test_full_flow(client):
+async def test_notifications_received(client):
     # Step 1: Start the WebSocket connection
     logger.info("Starting WebSocket listener...")
     websocket_task = asyncio.create_task(start_websocket_listener(client=client, endpoint="/ws", max_notifications=5))

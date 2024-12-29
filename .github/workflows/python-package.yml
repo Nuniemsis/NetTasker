@@ -60,7 +60,17 @@ jobs:
         DB_PORT: "5432"
         DB_NAME: mydatabase
       run: |
-        poetry run pytest
+        poetry run pytest --cov=your_package --cov-report=xml
+        poetry run coverage-badge -o coverage.svg
+        mkdir -p public
+        mv coverage.svg public/        
+
+    - name: Deploy badge to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+
 
     - name: Export Dependencies
       working-directory: fastapi-task-app

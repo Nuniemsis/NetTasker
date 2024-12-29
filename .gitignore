@@ -9,3 +9,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+# Coverage files
+fastapi-task-app/.coverage
+fastapi-task-app/coverage.svg
+fastapi-task-app/coverage.xml

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, DateTime, String, Text
-from database.database import Base  # Ensure this matches your `Base` definition
+from app.database.database import Base  # Ensure this matches your `Base` definition
 
 class TaskModel(Base):
     __tablename__ = "tasks"

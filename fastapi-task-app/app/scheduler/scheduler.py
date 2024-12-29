@@ -1,9 +1,9 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import asyncio
 import logging
-from routes.websocket_routes import notify_clients
-from schemas.notification import Notification
-from schemas.notification_type_enum import NotificationType
+from app.routes.websocket_routes import notify_clients
+from app.schemas.notification import Notification
+from app.schemas.notification_type_enum import NotificationType
 
 # Logger setup
 logger = logging.getLogger(__name__)

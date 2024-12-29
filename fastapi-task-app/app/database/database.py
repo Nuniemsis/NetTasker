@@ -20,5 +20,5 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def init_db():
-    from models.task_model import TaskModel  # Adjust this import based on your project structure
+    from app.models.task_model import TaskModel  # Adjust this import based on your project structure
     Base.metadata.create_all(bind=engine)

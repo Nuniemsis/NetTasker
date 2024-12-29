@@ -1,8 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 from typing import List, Optional
-from schemas.task_status_enum import TaskStatus
-
+from app.schemas.task_status_enum import TaskStatus
 
 class TaskResponse(BaseModel):
     task_id: str

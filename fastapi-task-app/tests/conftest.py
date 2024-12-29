@@ -2,11 +2,11 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database.database import Base, init_db, SessionLocal
-from main import app  # Import your FastAPI app
+from app.database.database import Base, init_db, SessionLocal
+from app.main import app  # Import your FastAPI app
 
 # Use the test database from .env
-from database.database import DATABASE_URL
+from  app.database.database import DATABASE_URL
 
 # Test database setup
 engine = create_engine(DATABASE_URL)

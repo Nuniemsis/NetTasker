@@ -1,7 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from typing import List, Optional
-from schemas.task_status_enum import TaskStatus
-
+from app.schemas.task_status_enum import TaskStatus
 
 class CountStatusResponseModel(BaseModel):
     status: TaskStatus  # Use the enum here

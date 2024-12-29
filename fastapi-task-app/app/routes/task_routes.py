@@ -1,11 +1,11 @@
 from fastapi import APIRouter, BackgroundTasks, Depends, Query
 from sqlalchemy.orm import Session
-from schemas.task_status_count import CountStatusResponseModel
-from schemas.task_status_enum import TaskStatus
-from schemas.task_schema import PaginatedTasksResponse, TaskResponse
-from database.database import SessionLocal
-from utils.task_processing import process_task
-from crud.task_crud import (
+from app.schemas.task_status_count import CountStatusResponseModel
+from app.schemas.task_status_enum import TaskStatus
+from app.schemas.task_schema import PaginatedTasksResponse, TaskResponse
+from app.database.database import SessionLocal
+from app.utils.task_processing import process_task
+from app.crud.task_crud import (
     create_task_in_db,
     get_paginated_tasks,
     count_total_tasks,

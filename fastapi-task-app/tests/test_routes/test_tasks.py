@@ -1,7 +1,7 @@
 import asyncio
 import pytest
-from schemas.task_status_enum import TaskStatus
-from schemas.notification_type_enum import NotificationType
+from  app.schemas.task_status_enum import TaskStatus
+from  app.schemas.notification_type_enum import NotificationType
 import logging
 from starlette.testclient import WebSocketTestSession
 

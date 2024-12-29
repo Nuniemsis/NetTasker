@@ -1,13 +1,12 @@
 import random
 import logging
-from time import sleep
 import asyncio
 from sqlalchemy.orm import Session
-from schemas.notification import Notification
-from schemas.notification_type_enum import NotificationType
-from crud.task_crud import update_task_status
-from routes.websocket_routes import notify_clients
-from schemas.task_status_enum import TaskStatus
+from app.schemas.notification import Notification
+from app.schemas.notification_type_enum import NotificationType
+from app.crud.task_crud import update_task_status
+from app.routes.websocket_routes import notify_clients
+from app.schemas.task_status_enum import TaskStatus
 
 # Configure logger
 logger = logging.getLogger(__name__)

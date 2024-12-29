@@ -1,8 +1,8 @@
 # crud.py: Handles database operations for tasks
 from uuid import uuid4
 from sqlalchemy.orm import Session
-from models.task_model import TaskModel
-from schemas.task_status_enum import TaskStatus
+from app.models.task_model import TaskModel
+from app.schemas.task_status_enum import TaskStatus
 from datetime import datetime, timezone
 from typing import List
 

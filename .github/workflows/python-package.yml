@@ -63,15 +63,18 @@ jobs:
         poetry run pytest
 
     - name: Export Dependencies
+      working-directory: fastapi-task-app
       run: |
         poetry export --without-hashes -f requirements.txt -o requirements.txt
 
     - name: Run Safety Check
+      working-directory: fastapi-task-app
       run: |
         pip install safety
         safety check -r requirements.txt
 
     - name: Run pip-audit
+      working-directory: fastapi-task-app
       run: |
         pip install pip-audit
         pip-audit -r requirements.txt

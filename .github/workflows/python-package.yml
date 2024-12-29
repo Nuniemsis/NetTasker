@@ -41,6 +41,8 @@ jobs:
       working-directory: fastapi-task-app
       run: |
         poetry install
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$PWD/fastapi-task-app" >> $GITHUB_ENV
     - name: Lint with flake8
       working-directory: fastapi-task-app
       run: |
@@ -51,7 +53,7 @@ jobs:
     - name: Test with pytest
       working-directory: fastapi-task-app
       env:
-        DATABASE_URL: "postgresql://test_user:test_password@localhost:5432/test_db"
+        DATABASE_URL: "postgresql://test_user:test_password@localhost:5432/mydatabase"
         DB_USER: myuser
         DB_PASSWORD: mypassword
         DB_HOST: localhost
@@ -59,3 +61,17 @@ jobs:
         DB_NAME: mydatabase
       run: |
         poetry run pytest
+
+    - name: Export Dependencies
+      run: |
+        poetry export --without-hashes -f requirements.txt -o requirements.txt
+
+    - name: Run Safety Check
+      run: |
+        pip install safety
+        safety check -r requirements.txt
+
+    - name: Run pip-audit
+      run: |
+        pip install pip-audit
+        pip-audit -r requirements.txt

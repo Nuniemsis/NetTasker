@@ -66,11 +66,10 @@ jobs:
         mv coverage.svg public/        
 
     - name: Deploy badge to GitHub Pages
-      working-directory: fastapi-task-app
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+        publish_dir: ./fastapi-task-app/public
 
 
     - name: Export Dependencies
